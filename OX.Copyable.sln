@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OX.Copyable", "OX.Copyable\OX.Copyable.csproj", "{44974FCD-7B84-425D-B8F1-8FF029335B89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OX.Copyable.Tests", "OX.Copyable.Tests\OX.Copyable.Tests.csproj", "{AA397E76-A5B1-4CE2-AF53-71243E8F2F41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44974FCD-7B84-425D-B8F1-8FF029335B89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44974FCD-7B84-425D-B8F1-8FF029335B89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44974FCD-7B84-425D-B8F1-8FF029335B89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44974FCD-7B84-425D-B8F1-8FF029335B89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA397E76-A5B1-4CE2-AF53-71243E8F2F41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA397E76-A5B1-4CE2-AF53-71243E8F2F41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA397E76-A5B1-4CE2-AF53-71243E8F2F41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA397E76-A5B1-4CE2-AF53-71243E8F2F41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
