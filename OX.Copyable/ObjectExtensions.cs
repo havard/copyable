@@ -158,24 +158,36 @@ namespace OX.Copyable
 
         private static object DeduceInstance(object instance)
         {
-            Type instanceType = instance.GetType();
-
-            if (typeof(Copyable).IsAssignableFrom(instanceType))
-                return ((Copyable)instance).CreateInstanceForCopy();
             foreach (IInstanceProvider provider in Providers)
             {
-                if (provider.Provided == instanceType)
+                if (provider.Provided == instance.GetType())
                     return provider.CreateCopy(instance);
             }
 
-            try
+            MethodInfo cloneMethod = GetMemberwiseCloneMethod(instance.GetType());
+            if (instance is MarshalByRefObject)
+                return cloneMethod.Invoke(instance, new object[] { false });
+            else
+                return cloneMethod.Invoke(instance, null);
+        }
+
+        private static MethodInfo GetMemberwiseCloneMethod(Type type)
+        {
+            MemberInfo[] members = (MemberInfo[])type.FindMembers(MemberTypes.Method,
+                BindingFlags.NonPublic | BindingFlags.Instance,
+                new MemberFilter(delegate(MemberInfo candidate, Object part)
+                                    { return candidate.Name == part.ToString(); }),
+                "MemberwiseClone");
+
+            if (members.Length > 0)
             {
-                return FormatterServices.GetUninitializedObject(instanceType);
+                MethodInfo method = members[0] as MethodInfo;
+                if (method == null)
+                    throw new ApplicationException("Cannot find MemberwiseClone on " + type.ToString());
+                return method;
             }
-            catch
-            {
-                throw new ArgumentException(string.Format("Object of type {0} cannot be cloned because an uninitialized object could not be created.", instanceType.FullName));
-            }
+            else
+                throw new ApplicationException("Cannot find MemberwiseClone on " + type.ToString());
         }
     }
 }
