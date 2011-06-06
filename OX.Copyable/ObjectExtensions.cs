@@ -116,9 +116,15 @@ namespace OX.Copyable
 
             Type instanceType = instance.GetType();
 
-            if (instanceType.IsValueType || instanceType == typeof(string))
-                return instance; // Value types and strings are immutable
-            else if (instanceType.IsArray)
+            if(typeof(Type).IsAssignableFrom(instanceType))
+            {
+                return instance;
+            }
+
+            if (instanceType.IsPointer || instanceType == typeof(Pointer) || instanceType.IsPrimitive || instanceType == typeof(string))
+                return instance; // Pointers, primitive types and strings are considered immutable
+            
+            if (instanceType.IsArray)
             {
                 int length = ((Array)instance).Length;
                 Array copied = (Array)Activator.CreateInstance(instanceType, length);
@@ -127,8 +133,8 @@ namespace OX.Copyable
                     copied.SetValue(((Array)instance).GetValue(i).Clone(visited), i);
                 return copied;
             }
-            else
-                return Clone(instance, visited, DeduceInstance(instance));
+            
+            return Clone(instance, visited, DeduceInstance(instance));
         }
 
         private static object Clone(this object instance, VisitedGraph visited, object copy)
